@@ -1,0 +1,130 @@
+﻿@page
+@model ProjectPRN221.Pages.ChangeScheduleModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<head>
+	<link rel="stylesheet" href="~/assets/css/styles.css" />
+	<link href="~/libs/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<link href="~/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<div class="row head-title">
+			<div class="col-md-8">
+				<h1>
+					<span>FPT University Academic Portal</span>
+				</h1>
+			</div>
+			<div class="col-md-4 mobile-app-ads">
+				<div>
+					<span><strong>FAP mobile app (myFAP) is ready at</strong></span>
+				</div>
+				<div style="display: flex; justify-content: space-between">
+					<div>
+						<a href="https://apps.apple.com/app/id1527723314">
+							<img src="https://fap.fpt.edu.vn/images/app-store.png" style="width: 120px; height: 40px" alt="apple store" />
+						</a>
+					</div>
+					<div>
+						<a href="https://play.google.com/store/apps/details?id=com.fuct">
+							<img src="https://fap.fpt.edu.vn/images/play-store.png" style="width: 120px; height: 40px" alt="google store" />
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<header class="header-bar">
+					<div class="header-left">
+						<span><a href="#">Home</a></span>&nbsp;|&nbsp;
+					</div>
+					<div class="header-right">
+						<span><a href="#">username</a></span>&nbsp;|&nbsp;
+						<span><a href="#">logout</a></span>&nbsp;|&nbsp;
+						<span><a href="#">CAMPUS: FPTU-Hòa Lạc</a></span>
+					</div>
+				</header>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 1em">
+			<div class="col-md-12">
+				<div>
+					<h2>Change Schedule</h2>
+				</div>
+				<div class="change-schedule-table">
+					<form>
+						<p id="sysMessage" class="sysMessage"></p>
+						<table>
+							<tr>
+								<td>New date</td>
+								<td><input type="date" /></td>
+							</tr>
+							<tr>
+								<td>New slot</td>
+								<td>
+									<select>
+										<option>1</option>
+										<option>2</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>New room</td>
+								<td>
+									<select>
+										<option>data</option>
+										<option>data</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>New teacher</td>
+								<td><input type="text" /></td>
+							</tr>
+							<tr>
+								<td>SessionNo</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>Course</td>
+								<td>Advanced Cross-Platform Application Programming With .NET</td>
+							</tr>
+							<tr>
+								<td>Subject</td>
+								<td>PRN221 (Advanced Cross-Platform Application Programming With .NET)</td>
+							</tr>
+							<tr>
+								<td>Campus/Programme</td>
+								<td>FU-HL</td>
+							</tr>
+							<tr>
+								<td>Student group</td>
+								<td>SE1702-NET</td>
+							</tr>
+							<tr>
+								<td>Reason</td>
+								<td>
+									<textarea style="width: 100%">
+
+									</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>Online</td>
+								<td>
+									<input type="checkbox"/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<input type="submit" value="Test Change" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

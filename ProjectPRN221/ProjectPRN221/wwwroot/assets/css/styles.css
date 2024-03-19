@@ -1,2 +1,94 @@
 ﻿body {
 }
+
+.head-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mobile-app-ads {
+    width: fit-content !important;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    padding: 0.5em 1em;
+    margin-top: 1em;
+    border-radius: 9px;
+}
+
+    .header-bar a {
+        text-decoration: none;
+        text-align: center;
+    }
+
+.header-right span {
+    background-color: #5CB85C;
+    border-radius: 5px;
+}
+
+.header-right a {
+    color: white;
+    margin: 0 0.5em;
+    font-size: 0.9em;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.activity-table {
+    margin: 0.25em;
+}
+
+    .activity-table table {
+        width: 100%;
+        margin-top: 0.5em;
+    }
+
+    .activity-table th, td {
+        padding: 0.25em;
+        margin: 0.25em;
+        text-align: center;
+    }
+
+.activity-search-bar {
+    background-color: #6b90da;
+    padding: 0.5em;
+}
+
+.change-schedule-table table th, td {
+    text-align: left;
+    padding: 0.5em 1em 0 0;
+}
+
+.import-schdule a, span {
+    text-decoration: none;
+}
+
+.import-schdule {
+    cursor: pointer;
+}
+
+.upload-file-popup {
+    display: none;
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+    animation: mymove 0.3s ease-in-out;
+}
+
+@keyframes mymove {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 35%
+    }
+}

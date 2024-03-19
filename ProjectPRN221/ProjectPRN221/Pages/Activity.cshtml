@@ -1,0 +1,133 @@
+﻿@page
+@model ProjectPRN221.Pages.IndexModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<head>
+	<link rel="stylesheet" href="~/assets/css/styles.css" />
+	<link href="~/libs/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<link href="~/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<div class="row head-title">
+			<div class="col-md-8">
+				<h1>
+					<span>FPT University Academic Portal</span>
+				</h1>
+			</div>
+			<div class="col-md-4 mobile-app-ads">
+				<div>
+					<span><strong>FAP mobile app (myFAP) is ready at</strong></span>
+				</div>
+				<div style="display: flex; justify-content: space-between">
+					<div>
+						<a href="https://apps.apple.com/app/id1527723314">
+							<img src="https://fap.fpt.edu.vn/images/app-store.png" style="width: 120px; height: 40px" alt="apple store" />
+						</a>
+					</div>
+					<div>
+						<a href="https://play.google.com/store/apps/details?id=com.fuct">
+							<img src="https://fap.fpt.edu.vn/images/play-store.png" style="width: 120px; height: 40px" alt="google store" />
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<header class="header-bar">
+					<div class="header-left">
+						<span><a href="#">Home</a></span>&nbsp;|&nbsp;
+					</div>
+					<div class="header-right">
+						<span><a href="#">username</a></span>&nbsp;|&nbsp;
+						<span><a href="#">logout</a></span>&nbsp;|&nbsp;
+						<span><a href="#">CAMPUS: FPTU-Hòa Lạc</a></span>
+					</div>
+				</header>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 1em">
+			<div class="col-md-12">
+				<div style="display: flex; justify-content: center">
+					<form>
+						Search:
+						<input type="text" />
+						From:
+						<input type="date" />
+						<input type="submit" value="Search" />
+					</form>
+				</div>
+				<div class="activity-table">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<form>
+								<div class="center activity-search-bar">
+									<div>
+										CAMPUS:
+										<select>
+											<option>FU-HL</option>
+											<option>FU-DA</option>
+										</select>
+										AREA:
+										<select>
+											<option>ALPHA</option>
+											<option>BETA</option>
+											<option>DELTA</option>
+											<option>GAMMA</option>
+											<option>EPSILON</option>
+											<option>Sân tập võ</option>
+										</select>
+										DATE:
+										<input type="date" />
+										<input type="submit" value="View" />
+									</div>
+								</div>
+							</form>
+						</thead>
+						<tbody>
+							<tr class="table-primary">
+								<th>ROOM<br />(CAPACITY)</th>
+								<th>SLOT 1<br />(07:30 - 09:50)</th>
+								<th>SLOT 2<br />(07:30 - 09:50)</th>
+								<th>SLOT 3<br />(07:30 - 09:50)</th>
+								<th>SLOT 4<br />(07:30 - 09:50)</th>
+								<th>SLOT 5<br />(07:30 - 09:50)</th>
+								<th>SLOT 6<br />(07:30 - 09:50)</th>
+							</tr>
+							<tr>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+							</tr>
+							<tr>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+							</tr>
+							<tr>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+								<td>data</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
