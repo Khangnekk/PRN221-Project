@@ -6,11 +6,11 @@ using Data_Access.Mapper;
 
 namespace Data_Access.Repository.Implement
 {
-	public class AreaRepository : IAreaRepository
+	public class TimeSlotRepository : ITimeSlotRepository
 	{
 		private IMapper mapper;
 
-		public AreaRepository()
+		public TimeSlotRepository()
 		{
 			var config = new MapperConfiguration(cfg =>
 			{
@@ -18,10 +18,9 @@ namespace Data_Access.Repository.Implement
 			});
 			mapper = config.CreateMapper();
 		}
-
-		public List<AreaDTO> GetAllAreas()
+		public List<TimeSlotDTO> GetTimeSlots()
 		{
-			return mapper.Map<List<Area>, List<AreaDTO>>(AreaDAO.GetAreas());
+			return mapper.Map<List<TimeSlot>, List<TimeSlotDTO>>(TimeSlotDAO.GetTimeSlots());
 		}
 	}
 }

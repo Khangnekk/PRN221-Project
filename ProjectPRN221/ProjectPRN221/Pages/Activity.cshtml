@@ -1,5 +1,5 @@
 ﻿@page
-@model ProjectPRN221.Pages.IndexModel
+@model ProjectPRN221.Pages.ActivityModel
 @{
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -71,13 +71,15 @@
 											<option>FU-DA</option>
 										</select>
 										AREA:
-										<select>
-											<option>ALPHA</option>
-											<option>BETA</option>
-											<option>DELTA</option>
-											<option>GAMMA</option>
-											<option>EPSILON</option>
-											<option>Sân tập võ</option>
+										<select asp-for="AreaId" name="AreaId">
+											<option value="-1">- Select one -</option>
+											@if (Model.Areas != null)
+											{
+												foreach (var item in Model.Areas)
+												{
+													<option value="@item.AreaId">@item.AreaName</option>
+												}
+											}
 										</select>
 										DATE:
 										<input type="date" />
@@ -89,12 +91,10 @@
 						<tbody>
 							<tr class="table-primary">
 								<th>ROOM<br />(CAPACITY)</th>
-								<th>SLOT 1<br />(07:30 - 09:50)</th>
-								<th>SLOT 2<br />(07:30 - 09:50)</th>
-								<th>SLOT 3<br />(07:30 - 09:50)</th>
-								<th>SLOT 4<br />(07:30 - 09:50)</th>
-								<th>SLOT 5<br />(07:30 - 09:50)</th>
-								<th>SLOT 6<br />(07:30 - 09:50)</th>
+								@foreach (var item in Model.TimeSlots)
+								{
+									<th>@item.TimeslotName<br />( @item.TimeslotDescription )</th>
+								}
 							</tr>
 							<tr>
 								<td>data</td>
@@ -123,7 +123,7 @@
 								<td>data</td>
 								<td>data</td>
 							</tr>
-							
+
 						</tbody>
 					</table>
 				</div>

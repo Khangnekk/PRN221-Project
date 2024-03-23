@@ -10,7 +10,7 @@ namespace Business_Object.Models
             Rooms = new HashSet<Room>();
         }
 
-        public int AreaId { get; set; }
+        public string AreaId { get; set; } = null!;
         public string AreaName { get; set; } = null!;
         public bool Discontinued { get; set; }
 

@@ -10,8 +10,11 @@ namespace Data_Access.Mapper
 		{
 			// Map Area
 			CreateMap<Area, AreaDTO>();
-			CreateMap<AeraDTOCreate, Area>();
-			CreateMap<AreaDTO, Area>();
+			CreateMap<AreaDTOCreate, Area>();
+
+			// Map TimeSlot
+			CreateMap<TimeSlot, TimeSlotDTO>();
+			CreateMap<TimeSlotDTOCreate, TimeSlot>();
 		}
 	}
 }

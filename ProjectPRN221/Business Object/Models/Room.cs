@@ -12,7 +12,7 @@ namespace Business_Object.Models
 
         public int RoomId { get; set; }
         public string RoomName { get; set; } = null!;
-        public int AreaId { get; set; }
+        public string AreaId { get; set; } = null!;
         public bool Discontinued { get; set; }
 
         public virtual Area Area { get; set; } = null!;
