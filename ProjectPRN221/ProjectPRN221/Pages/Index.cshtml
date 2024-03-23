@@ -57,10 +57,13 @@
 					<a style="font-size: 1.2em;" href="#">
 						<i class="fa fa-upload"></i>
 						<span>Import Schedule</span>
-					</a>
+					</a					
 				</div>
-				<div class="import-schdule" id="impSchedule">
-					<a style="font-size: 1.2em;" href="/Activity">
+				<div style="margin-left: 2em">
+					<span>@Model.Message</span>
+				</div>
+				<div>
+					<a style="font-size: 1.2em; text-decoration: none" href="/Activity">
 						<i class="fa fa-calendar"></i>
 						<span>Activity</span>
 					</a>
@@ -75,7 +78,7 @@
 					<div style="display: flex; justify-content: end">
 						<button style="margin:0.9em;" type="button" class="btn btn-close btn" id="btnClose" />
 					</div>
-					<form>
+					<form method="post" enctype="multipart/form-data">
 						<h2 style="text-align: center;">Import schedule</h2>
 						<div class="card-body">
 							<div id="drop-area" class="border rounded d-flex justify-content-center align-items-center"
@@ -85,9 +88,12 @@
 									<p class="mt-3">Drag and drop your image here or click to select a file.</p>
 								</div>
 							</div>
-							<input type="file" id="fileElem" multiple accept="image/*" class="d-none">
+							<input type="file" id="fileElem" multiple accept=".json, .csv, .xml" asp-for="@Model.FormFile" required class="d-none">
 						</div>
-						<div style="display: flex; justify-content: end; padding:0 1em">
+						<div style="display: flex; justify-content: space-between; padding:0 1em">
+							<div>
+								<p id="fileUploadRaw"></p>
+							</div>
 							<div>
 								<input type="submit" value="Import" class="btn btn-primary" />
 							</div>

@@ -80,7 +80,7 @@
     left: 50%;
     transform: translate(-50%,-50%);
     width: 60%;
-    animation: mymove 0.3s ease-in-out;
+    animation: mymove 0.2s ease-in-out;
 }
 
 @keyframes mymove {
@@ -91,4 +91,13 @@
     100% {
         top: 35%
     }
+}
+.highlight {
+    background-color: #e5e5e5;
+    color: azure;
+}
+
+.fileUploadRawClass{
+    border: 1px dashed black;
+    padding: 0 2em 0 0.5em;
 }

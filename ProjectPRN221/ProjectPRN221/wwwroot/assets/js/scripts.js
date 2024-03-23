@@ -40,6 +40,7 @@ function handleFiles(files) {
 
 function uploadFile(file) {
     console.log("Uploading", file.name);
+    fileUploadRaw.innerHTML = file.name;
 }
 
 dropArea.addEventListener("click", () => {
@@ -66,3 +67,7 @@ importScheduleText.addEventListener('click', () => {
     importSchedulePopup.style.display = 'block';
 });
 
+const fileUploadRaw = document.getElementById("fileUploadRaw");
+if (fileUploadRaw.textContent != null) {
+    fileUploadRaw.classList.add("fileUploadRawClass");
+}

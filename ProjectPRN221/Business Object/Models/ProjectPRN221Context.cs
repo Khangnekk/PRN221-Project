@@ -26,12 +26,9 @@ namespace Business_Object.Models
 		{
 			if (!optionsBuilder.IsConfigured)
 			{
-				var builder = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-				IConfigurationRoot configuration = builder.Build();
-				optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+				var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+				optionsBuilder.UseSqlServer(config.GetConnectionString("MyConnectionStrings"));
 			}
-
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,7 +57,10 @@ namespace Business_Object.Models
 					.IsUnicode(false)
 					.HasColumnName("groupId");
 
-				entity.Property(e => e.LecturerId).HasColumnName("lecturerId");
+				entity.Property(e => e.LecturerId)
+					.HasMaxLength(50)
+					.IsUnicode(false)
+					.HasColumnName("lecturerId");
 
 				entity.Property(e => e.Semester)
 					.HasMaxLength(50)
