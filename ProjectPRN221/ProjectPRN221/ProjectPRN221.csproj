@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.28">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.28" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot\libs\bootstrap\css\bootstrap-grid.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
