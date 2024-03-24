@@ -10,5 +10,10 @@ namespace Data_Access.DAO
 		{
 			return context.TimeSlots.Where(a => a.Discontinued == false).ToList();
 		}
+
+		public static TimeSlot GetTimeSlotById(int timeslotId)
+		{
+			return context.TimeSlots.SingleOrDefault(t => t.TimeslotId == timeslotId);
+		}
 	}
 }
