@@ -28,6 +28,7 @@ namespace ProjectPRN221.Pages
 			{
 				case ".json":
 					sessions = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
+					var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(sessions.FirstOrDefault());
 					Message = "✅ Import Schedule: Success";
 					break;
 				case ".csv":

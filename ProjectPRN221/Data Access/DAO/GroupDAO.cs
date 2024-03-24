@@ -10,5 +10,7 @@ namespace Data_Access.DAO
 		{
 			return context.Groups.SingleOrDefault(g => g.GroupId == groupId);
 		}
+
+		//public static void 
 	}
 }
