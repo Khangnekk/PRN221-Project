@@ -6,7 +6,7 @@ namespace Business_Object.Models
     public partial class Session
     {
         public int SessionId { get; set; }
-        public string GroupId { get; set; } = null!;
+        public int GroupId { get; set; }
         public int RoomId { get; set; }
         public DateTime Date { get; set; }
         public int TimeslotId { get; set; }

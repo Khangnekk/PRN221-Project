@@ -42,8 +42,15 @@ namespace Data_Access.DAO
 		{
 			session.Discontinued = false;
 			context.Sessions.Add(session);
-
-			//context.SaveChanges();
+			var room = context.Rooms.FirstOrDefault(r => r.RoomId == session.RoomId);
+			var group = context.Groups.FirstOrDefault(r => r.GroupId == session.GroupId);
+			var lecturer = context.Lecturers.FirstOrDefault(r => r.LecturerId == session.LecturerId);
+			var timeslot = context.TimeSlots.FirstOrDefault(r => r.TimeslotId == session.TimeslotId);
+			context.Entry<Room>(room).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			context.Entry<Group>(group).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			context.Entry<Lecturer>(lecturer).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			context.Entry<TimeSlot>(timeslot).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			context.SaveChanges();
 		}
 
 		public void SaveRangeSession(List<Session> sessions)

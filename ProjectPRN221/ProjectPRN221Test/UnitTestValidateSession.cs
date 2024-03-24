@@ -12,7 +12,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",
@@ -32,7 +32,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",
@@ -52,7 +52,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",
@@ -72,7 +72,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",
@@ -93,7 +93,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",
@@ -113,7 +113,7 @@ namespace ProjectPRN221Test
 			SessionDTORaw rawSession = new SessionDTORaw
 			{
 				SubjectId = "PRN211",
-				GroupId = "SE1643",
+				GroupName = "SE1643",
 				RoomRaw = "BE-102",
 				FirstDate = new DateTime(2024, 3, 24),
 				TimeslotRaw = "A24",

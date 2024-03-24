@@ -29,7 +29,7 @@ namespace Data_Access.Repository.Implement
 			SessionDAO.Instance.SaveRangeSession(mapper.Map<List<SessionDTOCreate>, List<Session>>(sessionDTOCreates));
 		}
 
-		public void SaveSession(SessionDTOCreate sessionDTOCreate)
+		public void SaveSessionDTO(SessionDTOCreate sessionDTOCreate)
 		{
 			SessionDAO.Instance.SaveSession(mapper.Map<SessionDTOCreate, Session>(sessionDTOCreate));
 		}

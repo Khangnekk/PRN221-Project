@@ -7,6 +7,6 @@ namespace Data_Access.Repository
 		public List<SessionDTO> GetAllSessions();
 		public void SaveRangeSession(List<SessionDTOCreate> sessionDTOCreates);
 
-		public void SaveSession(SessionDTOCreate sessionDTOCreate);
+		public void SaveSessionDTO(SessionDTOCreate sessionDTOCreate);
 	}
 }

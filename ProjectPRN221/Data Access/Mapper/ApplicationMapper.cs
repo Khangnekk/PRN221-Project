@@ -23,15 +23,19 @@ namespace Data_Access.Mapper
 				.ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Room))
 				.ForMember(dest => dest.Timeslot, opt => opt.MapFrom(src => src.Timeslot));
 			CreateMap<SessionDTOCreate, Session>()
-				.ForMember(dest => dest.Group, opt => opt.MapFrom(src => src.Group))
-				.ForMember(dest => dest.Lecturer, opt => opt.MapFrom(src => src.Lecturer))
-				.ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Room))
-				.ForMember(dest => dest.Timeslot, opt => opt.MapFrom(src => src.Timeslot))
 				.ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => false));
+			CreateMap<SessionDTO, SessionDTOCreate>();
 
 			// Map Group
 			CreateMap<Group, GroupDTO>();
 			CreateMap<GroupDTOCreate, Group>();
+
+			// Map Subject
+			CreateMap<SubjectDTOCreate, Subject>();
+			CreateMap<Subject, SubjectDTOCreate>();
+
+			// Add mapping between Group and GroupDTOCreate
+			CreateMap<Group, GroupDTOCreate>();
 		}
 	}
 }

@@ -20,7 +20,7 @@ namespace Data_Access.Repository.Implement
 		}
 		public List<TimeSlotDTO> GetTimeSlots()
 		{
-			return mapper.Map<List<TimeSlot>, List<TimeSlotDTO>>(TimeSlotDAO.GetTimeSlots());
+			return mapper.Map<List<TimeSlot>, List<TimeSlotDTO>>(TimeSlotDAO.Instance.GetTimeSlots());
 		}
 	}
 }

@@ -18,7 +18,6 @@ namespace ProjectPRN221.Pages
 		public List<SessionDTORaw> filterSessionsRaw = new List<SessionDTORaw>();
 		public List<SessionDTORaw> nonFilterSessionsRaw = new List<SessionDTORaw>();
 
-
 		private readonly ISessionRepository sessionRepository = new SessionRepository();
 		public void OnGet()
 		{
@@ -43,7 +42,7 @@ namespace ProjectPRN221.Pages
 						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
 						foreach (var item in sessionsAfterConvert)
 						{
-							//sessionRepository
+							sessionRepository.SaveSessionDTO(item);
 						}
 						//sessionRepository.SaveRangeSession(sessionsAfterConvert);
 					}

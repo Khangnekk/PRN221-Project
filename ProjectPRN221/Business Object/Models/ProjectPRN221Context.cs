@@ -52,10 +52,12 @@ namespace Business_Object.Models
 			{
 				entity.ToTable("Group");
 
-				entity.Property(e => e.GroupId)
-					.HasMaxLength(50)
+				entity.Property(e => e.GroupId).HasColumnName("groupId");
+
+				entity.Property(e => e.GroupName)
+					.HasMaxLength(150)
 					.IsUnicode(false)
-					.HasColumnName("groupId");
+					.HasColumnName("groupName");
 
 				entity.Property(e => e.LecturerId)
 					.HasMaxLength(50)
@@ -147,10 +149,7 @@ namespace Business_Object.Models
 					.HasColumnType("datetime")
 					.HasColumnName("date");
 
-				entity.Property(e => e.GroupId)
-					.HasMaxLength(50)
-					.IsUnicode(false)
-					.HasColumnName("groupId");
+				entity.Property(e => e.GroupId).HasColumnName("groupId");
 
 				entity.Property(e => e.LecturerId)
 					.HasMaxLength(50)

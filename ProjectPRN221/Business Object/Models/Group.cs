@@ -10,12 +10,13 @@ namespace Business_Object.Models
             Sessions = new HashSet<Session>();
         }
 
-        public string GroupId { get; set; } = null!;
+        public int GroupId { get; set; }
+        public string GroupName { get; set; } = null!;
         public string SubjectId { get; set; } = null!;
         public string LecturerId { get; set; } = null!;
         public string? Semester { get; set; }
         public string? Year { get; set; }
-        public bool Discontinued { get; set; }
+        public bool? Discontinued { get; set; }
 
         public virtual Subject Subject { get; set; } = null!;
         public virtual ICollection<Session> Sessions { get; set; }

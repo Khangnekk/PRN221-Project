@@ -27,11 +27,18 @@ namespace Data_Access.DAO
 			}
 		}
 
-		public Group GetGroupById(string groupId)
+		public Group GetGroupByGroupNameAndSubjectId(string groupname, string subjectId)
 		{
-			return context.Groups.SingleOrDefault(g => g.GroupId == groupId);
+			return context.Groups.SingleOrDefault(g => g.GroupName == groupname && g.SubjectId == subjectId);
 		}
 
-		//public static void 
+		public void SaveGroup(Group newGroup)
+		{
+			newGroup.Discontinued = false;
+			context.Groups.Add(newGroup);
+			var subject = context.Subjects.FirstOrDefault(s => s.SubjectId == newGroup.SubjectId);
+			context.Entry<Subject>(subject).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			context.SaveChanges();
+		}
 	}
 }

@@ -1,22 +1,17 @@
 ﻿using Data_Access.DAO;
 using Data_Access.DTOs;
+using Data_Access.Repository;
+using Data_Access.Repository.Implement;
 
 namespace ProjectPRN221.Helper
 {
 	public class SessionHelper
 	{
+		private static readonly IGroupRepository _groupRepository = new GroupRepository();
+		private static readonly ISubjectRepository _subjectRepository = new SubjectRepository();
 		public static List<SessionDTOCreate> ConvertToSessionDTOCreates(SessionDTORaw rawSession)
 		{
 			List<SessionDTOCreate> sessionDTOCreates = new List<SessionDTOCreate>();
-
-			GroupDTOCreate group = new GroupDTOCreate();
-			group.GroupId = rawSession.GroupId;
-			group.SubjectId = rawSession.SubjectId;
-			group.LecturerId = rawSession.LecturerId;
-			group.Year = rawSession.FirstDate.Year.ToString();
-			group.Discontinued = false;
-			group.Subject = SubjectDAO.Instance.GetSubjectById(rawSession.SubjectId);
-
 
 			char[] delimiters = { 'A', 'P' };
 			string[] times = rawSession.TimeslotRaw.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
@@ -71,7 +66,14 @@ namespace ProjectPRN221.Helper
 
 							// New SessionDTOCreate
 							SessionDTOCreate sessionDTOCreate = new SessionDTOCreate();
-							sessionDTOCreate.GroupId = rawSession.GroupId;
+							// Add Object
+							//sessionDTOCreate.Room = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw);
+							//sessionDTOCreate.Lecturer = LecturerDAO.Instance.GetLecturerById(rawSession.LecturerId);
+							//sessionDTOCreate.Timeslot = TimeSlotDAO.Instance.GetTimeSlotById(sessionDTOCreate.TimeslotId);
+							//sessionDTOCreate.GroupId = GroupDAO.Instance.GetGroupByGroupNameAndSubjectId(rawSession.GroupName, rawSession.SubjectId).GroupId;
+							GetOrCreateGroup(rawSession.GroupName, rawSession.SubjectId, rawSession.LecturerId, rawSession.FirstDate.Year.ToString());
+							sessionDTOCreate.GroupId = GroupDAO.Instance.GetGroupByGroupNameAndSubjectId(rawSession.GroupName, rawSession.SubjectId).GroupId;
+
 							sessionDTOCreate.RoomId = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw).RoomId;
 							sessionDTOCreate.Date = currentDate;
 							sessionDTOCreate.LecturerId = rawSession.LecturerId;
@@ -92,11 +94,7 @@ namespace ProjectPRN221.Helper
 								else
 									sessionDTOCreate.TimeslotId = 4;
 							}
-							// Add Object
-							sessionDTOCreate.Room = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw);
-							sessionDTOCreate.Lecturer = LecturerDAO.Instance.GetLecturerById(rawSession.LecturerId);
-							sessionDTOCreate.Timeslot = TimeSlotDAO.Instance.GetTimeSlotById(sessionDTOCreate.TimeslotId);
-							sessionDTOCreate.Group = group;
+
 							sessionDTOCreates.Add(sessionDTOCreate);
 							sessionCount++;
 						}
@@ -108,6 +106,31 @@ namespace ProjectPRN221.Helper
 
 			return sessionDTOCreates;
 		}
+
+
+
+		public static GroupDTOCreate GetOrCreateGroup(string groupName, string subjectId, string lecturerId, string year)
+		{
+			var existingGroup = _groupRepository.GetGroupByGroupDTOCreateNameAndSubjectId(groupName, subjectId);
+
+			if (existingGroup != null)
+			{
+				return existingGroup;
+			}
+			else
+			{
+				GroupDTOCreate newGroup = new GroupDTOCreate();
+				newGroup.GroupName = groupName;
+				newGroup.SubjectId = subjectId;
+				newGroup.LecturerId = lecturerId;
+				newGroup.Year = year;
+				newGroup.Discontinued = false;
+
+				_groupRepository.SaveGroupDTO(newGroup);
+				return newGroup;
+			}
+		}
+
 
 		public static List<SessionDTORaw> GetFinalFilteredSessions(List<SessionDTORaw> sessions)
 		{
@@ -137,7 +160,7 @@ namespace ProjectPRN221.Helper
 			foreach (var session in sessions)
 			{
 				bool hasDifferentSubject = filteredSessions.Any(s =>
-					s.GroupId == session.GroupId &&
+					s.GroupName == session.GroupName &&
 					s.TimeslotRaw == session.TimeslotRaw &&
 					s.SubjectId != session.SubjectId);
 
@@ -158,7 +181,7 @@ namespace ProjectPRN221.Helper
 			foreach (var session in sessions)
 			{
 				bool hasDifferentRoomRaw = filteredSessions.Any(s =>
-					s.GroupId == session.GroupId &&
+					s.GroupName == session.GroupName &&
 					s.TimeslotRaw == session.TimeslotRaw &&
 					s.RoomRaw != session.RoomRaw);
 
@@ -179,7 +202,7 @@ namespace ProjectPRN221.Helper
 			foreach (var session in sessions)
 			{
 				bool hasDifferentLecturer = filteredSessions.Any(s =>
-					s.GroupId == session.GroupId &&
+					s.GroupName == session.GroupName &&
 					s.TimeslotRaw == session.TimeslotRaw &&
 					s.LecturerId != session.LecturerId);
 
@@ -200,7 +223,7 @@ namespace ProjectPRN221.Helper
 			foreach (var session in sessions)
 			{
 				bool hasDifferentGroup = filteredSessions.Any(s =>
-					s.GroupId != session.GroupId &&
+					s.GroupName != session.GroupName &&
 					s.TimeslotRaw == session.TimeslotRaw &&
 					s.LecturerId == session.LecturerId);
 
