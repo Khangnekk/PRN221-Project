@@ -13,6 +13,8 @@ namespace ProjectPRN221.Pages
 		[BindProperty]
 		public IFormFile FormFile { get; set; }
 		public string Message { get; set; }
+		public List<SessionDTORaw> filterSessions = new List<SessionDTORaw>();
+		public List<SessionDTORaw> nonFilterSessions = new List<SessionDTORaw>();
 
 		public void OnGet()
 		{
@@ -23,32 +25,50 @@ namespace ProjectPRN221.Pages
 		{
 			var fileExtension = Path.GetExtension(FormFile.FileName).ToLower();
 			Stream sr = FormFile.OpenReadStream();
-			List<SessionDTORaw> sessions = new List<SessionDTORaw>();
+			List<SessionDTORaw> originalSessions = new List<SessionDTORaw>();
+
 			switch (fileExtension)
 			{
 				case ".json":
-					sessions = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
-					foreach (var session in sessions)
+					originalSessions = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
+					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
+					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
+
+					foreach (var session in filterSessions)
 					{
 						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
 
 					}
 
-					Message = "✅ Import Schedule: Success";
+					Message = "✅ Import Schedule Status: Done";
 					break;
 				case ".csv":
-					sessions = CsvFileHelper.CsvFileReader(sr);
+					originalSessions = CsvFileHelper.CsvFileReader(sr);
+					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
+					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
 
-					Message = "✅ Import Schedule: Success";
+					foreach (var session in filterSessions)
+					{
+						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
+
+					}
+					Message = "✅ Import Schedule Status: Done";
 					break;
 				case ".xml":
 					XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<SessionDTORaw>));
-					sessions = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
+					originalSessions = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
+					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
+					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
 
+					foreach (var session in filterSessions)
+					{
+						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
+
+					}
 					//DBContext.AddRange(services);
 					//DBContext.SaveChanges();
 					OnGet();
-					Message = "✅ Import Schedule: Success";
+					Message = "✅ Import Schedule Status: Done";
 					break;
 				default:
 					Message = "❌ Import Schedule: Fail. Cannot read data from file";
