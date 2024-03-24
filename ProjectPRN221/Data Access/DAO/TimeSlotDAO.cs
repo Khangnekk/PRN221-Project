@@ -2,16 +2,37 @@
 
 namespace Data_Access.DAO
 {
-	public class TimeSlotDAO
+	public class TimeSlotDAO : DAO<TimeSlot>
 	{
-		private static readonly ProjectPRN221Context context = new ProjectPRN221Context();
+		private static TimeSlotDAO instance;
+		private static readonly object padlock = new object();
 
-		public static List<TimeSlot> GetTimeSlots()
+		private TimeSlotDAO() { }
+		public static TimeSlotDAO Instance
+		{
+			get
+			{
+				// Double-check locking for thread safety
+				if (instance == null)
+				{
+					lock (padlock)
+					{
+						if (instance == null)
+						{
+							instance = new TimeSlotDAO();
+						}
+					}
+				}
+				return instance;
+			}
+		}
+
+		public List<TimeSlot> GetTimeSlots()
 		{
 			return context.TimeSlots.Where(a => a.Discontinued == false).ToList();
 		}
 
-		public static TimeSlot GetTimeSlotById(int timeslotId)
+		public TimeSlot GetTimeSlotById(int timeslotId)
 		{
 			return context.TimeSlots.SingleOrDefault(t => t.TimeslotId == timeslotId);
 		}

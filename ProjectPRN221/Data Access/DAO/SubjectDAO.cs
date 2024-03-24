@@ -2,11 +2,32 @@
 
 namespace Data_Access.DAO
 {
-	public class SubjectDAO
+	public class SubjectDAO : DAO<Subject>
 	{
-		private static readonly ProjectPRN221Context context = new ProjectPRN221Context();
+		private static SubjectDAO instance;
+		private static readonly object padlock = new object();
 
-		public static Subject GetSubjectById(string subjectId)
+		private SubjectDAO() { }
+		public static SubjectDAO Instance
+		{
+			get
+			{
+				// Double-check locking for thread safety
+				if (instance == null)
+				{
+					lock (padlock)
+					{
+						if (instance == null)
+						{
+							instance = new SubjectDAO();
+						}
+					}
+				}
+				return instance;
+			}
+		}
+
+		public Subject GetSubjectById(string subjectId)
 		{
 			return context.Subjects.SingleOrDefault(s => s.SubjectId == subjectId);
 		}
