@@ -1,5 +1,4 @@
-﻿using Business_Object.Models;
-using Data_Access.DAO;
+﻿using Data_Access.DAO;
 using Data_Access.DTOs;
 
 namespace ProjectPRN221.Helper
@@ -9,6 +8,15 @@ namespace ProjectPRN221.Helper
 		public static List<SessionDTOCreate> ConvertToSessionDTOCreates(SessionDTORaw rawSession)
 		{
 			List<SessionDTOCreate> sessionDTOCreates = new List<SessionDTOCreate>();
+
+			GroupDTOCreate group = new GroupDTOCreate();
+			group.GroupId = rawSession.GroupId;
+			group.SubjectId = rawSession.SubjectId;
+			group.LecturerId = rawSession.LecturerId;
+			group.Year = rawSession.FirstDate.Year.ToString();
+			group.Discontinued = false;
+			group.Subject = SubjectDAO.Instance.GetSubjectById(rawSession.SubjectId);
+
 
 			char[] delimiters = { 'A', 'P' };
 			string[] times = rawSession.TimeslotRaw.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
@@ -60,19 +68,11 @@ namespace ProjectPRN221.Helper
 
 						if (currentDate.DayOfWeek == dayOfWeek)
 						{
-							// New Group
-							Group group = new Group();
-							group.GroupId = rawSession.GroupId;
-							group.SubjectId = rawSession.SubjectId;
-							group.LecturerId = rawSession.LecturerId;
-							group.Year = rawSession.FirstDate.Year.ToString();
-							group.Discontinued = false;
-							group.Subject = SubjectDAO.GetSubjectById(rawSession.SubjectId);
 
 							// New SessionDTOCreate
 							SessionDTOCreate sessionDTOCreate = new SessionDTOCreate();
 							sessionDTOCreate.GroupId = rawSession.GroupId;
-							sessionDTOCreate.RoomId = RoomDAO.GetRoomByRoomRaw(rawSession.RoomRaw).RoomId;
+							sessionDTOCreate.RoomId = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw).RoomId;
 							sessionDTOCreate.Date = currentDate;
 							sessionDTOCreate.LecturerId = rawSession.LecturerId;
 							sessionDTOCreate.SessionNo = sessionCount + 1;
@@ -93,9 +93,9 @@ namespace ProjectPRN221.Helper
 									sessionDTOCreate.TimeslotId = 4;
 							}
 							// Add Object
-							sessionDTOCreate.Room = RoomDAO.GetRoomByRoomRaw(rawSession.RoomRaw);
-							sessionDTOCreate.Lecturer = LecturerDAO.GetLecturerById(rawSession.LecturerId);
-							sessionDTOCreate.Timeslot = TimeSlotDAO.GetTimeSlotById(sessionDTOCreate.TimeslotId);
+							sessionDTOCreate.Room = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw);
+							sessionDTOCreate.Lecturer = LecturerDAO.Instance.GetLecturerById(rawSession.LecturerId);
+							sessionDTOCreate.Timeslot = TimeSlotDAO.Instance.GetTimeSlotById(sessionDTOCreate.TimeslotId);
 							sessionDTOCreate.Group = group;
 							sessionDTOCreates.Add(sessionDTOCreate);
 							sessionCount++;
@@ -107,6 +107,26 @@ namespace ProjectPRN221.Helper
 			}
 
 			return sessionDTOCreates;
+		}
+
+		public static List<SessionDTORaw> GetFinalFilteredSessions(List<SessionDTORaw> sessions)
+		{
+			sessions = FilterSessionDTORaws_ByGroupTimeslotAndSubject(sessions);
+
+			sessions = FilterSessionDTORaws_ByGroupTimeslotAndRoom(sessions);
+
+			sessions = FilterSessionDTORawsBy_GroupTimeslotAndLecturer(sessions);
+
+			sessions = FilterSessionDTORawsBy_GroupTimeslotAndSameLecturer(sessions);
+
+			return sessions;
+		}
+
+		public static List<SessionDTORaw> GetNonFilteredSessions(List<SessionDTORaw> originalSessions, List<SessionDTORaw> filteredSessions)
+		{
+			List<SessionDTORaw> nonFilteredSessions = originalSessions.Except(filteredSessions).ToList();
+
+			return nonFilteredSessions;
 		}
 
 		// Same Group, Same TimeSlot, Has Different Subject 

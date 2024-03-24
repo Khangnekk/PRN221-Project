@@ -1,4 +1,6 @@
 ﻿using Data_Access.DTOs;
+using Data_Access.Repository;
+using Data_Access.Repository.Implement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjectPRN221.Helper;
@@ -13,9 +15,11 @@ namespace ProjectPRN221.Pages
 		[BindProperty]
 		public IFormFile FormFile { get; set; }
 		public string Message { get; set; }
-		public List<SessionDTORaw> filterSessions = new List<SessionDTORaw>();
-		public List<SessionDTORaw> nonFilterSessions = new List<SessionDTORaw>();
+		public List<SessionDTORaw> filterSessionsRaw = new List<SessionDTORaw>();
+		public List<SessionDTORaw> nonFilterSessionsRaw = new List<SessionDTORaw>();
 
+
+		private readonly ISessionRepository sessionRepository = new SessionRepository();
 		public void OnGet()
 		{
 			Message = string.Empty;
@@ -25,29 +29,33 @@ namespace ProjectPRN221.Pages
 		{
 			var fileExtension = Path.GetExtension(FormFile.FileName).ToLower();
 			Stream sr = FormFile.OpenReadStream();
-			List<SessionDTORaw> originalSessions = new List<SessionDTORaw>();
+			List<SessionDTORaw> originalSessionsRaw = new List<SessionDTORaw>();
 
 			switch (fileExtension)
 			{
 				case ".json":
-					originalSessions = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
-					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
-					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
+					originalSessionsRaw = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
+					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
+					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
 
-					foreach (var session in filterSessions)
+					foreach (var session in filterSessionsRaw)
 					{
 						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
-
+						foreach (var item in sessionsAfterConvert)
+						{
+							//sessionRepository
+						}
+						//sessionRepository.SaveRangeSession(sessionsAfterConvert);
 					}
 
 					Message = "✅ Import Schedule Status: Done";
 					break;
 				case ".csv":
-					originalSessions = CsvFileHelper.CsvFileReader(sr);
-					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
-					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
+					originalSessionsRaw = CsvFileHelper.CsvFileReader(sr);
+					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
+					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
 
-					foreach (var session in filterSessions)
+					foreach (var session in filterSessionsRaw)
 					{
 						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
 
@@ -56,11 +64,11 @@ namespace ProjectPRN221.Pages
 					break;
 				case ".xml":
 					XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<SessionDTORaw>));
-					originalSessions = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
-					filterSessions = SessionHelper.GetFinalFilteredSessions(originalSessions);
-					nonFilterSessions = SessionHelper.GetNonFilteredSessions(originalSessions, filterSessions);
+					originalSessionsRaw = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
+					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
+					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
 
-					foreach (var session in filterSessions)
+					foreach (var session in filterSessionsRaw)
 					{
 						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
 

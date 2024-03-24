@@ -28,6 +28,10 @@ namespace Data_Access.Mapper
 				.ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Room))
 				.ForMember(dest => dest.Timeslot, opt => opt.MapFrom(src => src.Timeslot))
 				.ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => false));
+
+			// Map Group
+			CreateMap<Group, GroupDTO>();
+			CreateMap<GroupDTOCreate, Group>();
 		}
 	}
 }

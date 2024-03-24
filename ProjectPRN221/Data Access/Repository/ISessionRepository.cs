@@ -4,7 +4,9 @@ namespace Data_Access.Repository
 {
 	public interface ISessionRepository
 	{
-		List<SessionDTO> GetAllSessions();
+		public List<SessionDTO> GetAllSessions();
+		public void SaveRangeSession(List<SessionDTOCreate> sessionDTOCreates);
 
+		public void SaveSession(SessionDTOCreate sessionDTOCreate);
 	}
 }

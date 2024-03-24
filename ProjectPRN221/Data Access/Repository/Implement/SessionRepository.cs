@@ -19,9 +19,19 @@ namespace Data_Access.Repository.Implement
 			mapper = config.CreateMapper();
 		}
 
-		List<SessionDTO> ISessionRepository.GetAllSessions()
+		public List<SessionDTO> GetAllSessions()
 		{
-			return mapper.Map<List<Session>, List<SessionDTO>>(SessionDAO.GetSessions());
+			return mapper.Map<List<Session>, List<SessionDTO>>(SessionDAO.Instance.GetSessions());
+		}
+
+		public void SaveRangeSession(List<SessionDTOCreate> sessionDTOCreates)
+		{
+			SessionDAO.Instance.SaveRangeSession(mapper.Map<List<SessionDTOCreate>, List<Session>>(sessionDTOCreates));
+		}
+
+		public void SaveSession(SessionDTOCreate sessionDTOCreate)
+		{
+			SessionDAO.Instance.SaveSession(mapper.Map<SessionDTOCreate, Session>(sessionDTOCreate));
 		}
 	}
 }

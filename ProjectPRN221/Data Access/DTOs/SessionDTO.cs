@@ -23,7 +23,7 @@ namespace Data_Access.DTOs
 		public string LecturerId { get; set; } = null!;
 		public int SessionNo { get; set; }
 		public bool? Online { get; set; }
-		public virtual Group Group { get; set; } = null!;
+		public virtual GroupDTOCreate Group { get; set; } = null!;
 		public virtual Lecturer Lecturer { get; set; } = null!;
 		public virtual Room Room { get; set; } = null!;
 		public virtual TimeSlot Timeslot { get; set; } = null!;
