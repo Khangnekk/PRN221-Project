@@ -28,16 +28,23 @@ namespace ProjectPRN221.Pages
 			{
 				case ".json":
 					sessions = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
-					var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(sessions.FirstOrDefault());
+					foreach (var session in sessions)
+					{
+						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
+
+					}
+
 					Message = "✅ Import Schedule: Success";
 					break;
 				case ".csv":
 					sessions = CsvFileHelper.CsvFileReader(sr);
+
 					Message = "✅ Import Schedule: Success";
 					break;
 				case ".xml":
 					XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<SessionDTORaw>));
 					sessions = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
+
 					//DBContext.AddRange(services);
 					//DBContext.SaveChanges();
 					OnGet();

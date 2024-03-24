@@ -108,5 +108,90 @@ namespace ProjectPRN221.Helper
 
 			return sessionDTOCreates;
 		}
+
+		// Same Group, Same TimeSlot, Has Different Subject 
+		public static List<SessionDTORaw> FilterSessionDTORaws_ByGroupTimeslotAndSubject(List<SessionDTORaw> sessions)
+		{
+			List<SessionDTORaw> filteredSessions = new List<SessionDTORaw>();
+
+			foreach (var session in sessions)
+			{
+				bool hasDifferentSubject = filteredSessions.Any(s =>
+					s.GroupId == session.GroupId &&
+					s.TimeslotRaw == session.TimeslotRaw &&
+					s.SubjectId != session.SubjectId);
+
+				if (!hasDifferentSubject)
+				{
+					filteredSessions.Add(session);
+				}
+			}
+
+			return filteredSessions;
+		}
+
+		// Same Group, Same TimeSlot, Has Different Room 
+		public static List<SessionDTORaw> FilterSessionDTORaws_ByGroupTimeslotAndRoom(List<SessionDTORaw> sessions)
+		{
+			List<SessionDTORaw> filteredSessions = new List<SessionDTORaw>();
+
+			foreach (var session in sessions)
+			{
+				bool hasDifferentRoomRaw = filteredSessions.Any(s =>
+					s.GroupId == session.GroupId &&
+					s.TimeslotRaw == session.TimeslotRaw &&
+					s.RoomRaw != session.RoomRaw);
+
+				if (!hasDifferentRoomRaw)
+				{
+					filteredSessions.Add(session);
+				}
+			}
+
+			return filteredSessions;
+		}
+
+		// Same Group, Same TimeSlot, Has Different Lecturer 
+		public static List<SessionDTORaw> FilterSessionDTORawsBy_GroupTimeslotAndLecturer(List<SessionDTORaw> sessions)
+		{
+			List<SessionDTORaw> filteredSessions = new List<SessionDTORaw>();
+
+			foreach (var session in sessions)
+			{
+				bool hasDifferentLecturer = filteredSessions.Any(s =>
+					s.GroupId == session.GroupId &&
+					s.TimeslotRaw == session.TimeslotRaw &&
+					s.LecturerId != session.LecturerId);
+
+				if (!hasDifferentLecturer)
+				{
+					filteredSessions.Add(session);
+				}
+			}
+
+			return filteredSessions;
+		}
+
+		// Same Lecturer, Same TimeSlot, Has Different Group
+		public static List<SessionDTORaw> FilterSessionDTORawsBy_GroupTimeslotAndSameLecturer(List<SessionDTORaw> sessions)
+		{
+			List<SessionDTORaw> filteredSessions = new List<SessionDTORaw>();
+
+			foreach (var session in sessions)
+			{
+				bool hasDifferentGroup = filteredSessions.Any(s =>
+					s.GroupId != session.GroupId &&
+					s.TimeslotRaw == session.TimeslotRaw &&
+					s.LecturerId == session.LecturerId);
+
+				if (!hasDifferentGroup)
+				{
+					filteredSessions.Add(session);
+				}
+			}
+
+			return filteredSessions;
+		}
+
 	}
 }

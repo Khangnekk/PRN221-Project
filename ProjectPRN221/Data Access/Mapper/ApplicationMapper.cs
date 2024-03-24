@@ -17,16 +17,17 @@ namespace Data_Access.Mapper
 			CreateMap<TimeSlotDTOCreate, TimeSlot>();
 
 			// Map Session
-			CreateMap<Session, SessionDTO>();
-			CreateMap<SessionDTOCreate, Session>();
-			//.ForMember(dest => dest.SessionNo, opt => opt.Ignore())
-			//.ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => false))
-			//.ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.GroupId))
-			//.ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => RoomDAO.GetRoomIdByRoomRaw(src.RoomRaw)))
-			//.ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
-			//.ForMember(dest => dest.TimeslotId, opt => opt.MapFrom(src => GetTimeslotId(src.TimeslotRaw)))
-			//.ForMember(dest => dest.LecturerId, opt => opt.MapFrom(src => src.LecturerId))
-			//.ForMember(dest => dest.Online, opt => opt.MapFrom(src => src.Online));
+			CreateMap<Session, SessionDTO>()
+				.ForMember(dest => dest.Group, opt => opt.MapFrom(src => src.Group))
+				.ForMember(dest => dest.Lecturer, opt => opt.MapFrom(src => src.Lecturer))
+				.ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Room))
+				.ForMember(dest => dest.Timeslot, opt => opt.MapFrom(src => src.Timeslot));
+			CreateMap<SessionDTOCreate, Session>()
+				.ForMember(dest => dest.Group, opt => opt.MapFrom(src => src.Group))
+				.ForMember(dest => dest.Lecturer, opt => opt.MapFrom(src => src.Lecturer))
+				.ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Room))
+				.ForMember(dest => dest.Timeslot, opt => opt.MapFrom(src => src.Timeslot))
+				.ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => false));
 		}
 	}
 }
