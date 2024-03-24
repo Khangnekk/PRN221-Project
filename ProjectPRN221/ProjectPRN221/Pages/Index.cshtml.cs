@@ -21,16 +21,30 @@ namespace ProjectPRN221.Pages
 
 		public void OnPost()
 		{
-			if (ValidateFile(FormFile))
+			//if (ValidateFile(FormFile))
+			//{
+			var fileExtension = Path.GetExtension(FormFile.FileName).ToLower();
+			switch (fileExtension)
 			{
-				Stream sr = FormFile.OpenReadStream();
-				Message = "✅ Import Schedule: Success";
+				case ".json":
+					Message = "✅ Import Schedule: Success";
+					break;
+				case ".csv":
+					Message = "✅ Import Schedule: Success";
+					break;
+				case ".xml":
+					Message = "✅ Import Schedule: Success";
+					break;
+				default:
+					Message = "❌ Import Schedule: Fail. Cannot read data from file";
+					break;
 			}
-			else
-			{
-				Message = "❌ Import Schedule: Failur. Only JSON, CSV, and XML files are allowed.";
-				Page();
-			}
+			//}
+			//else
+			//{
+			//	Message = "❌ Import Schedule: Failur. Only JSON, CSV, and XML files are allowed.";
+			//	Page();
+			//}
 		}
 
 		private bool ValidateFile(IFormFile file)
