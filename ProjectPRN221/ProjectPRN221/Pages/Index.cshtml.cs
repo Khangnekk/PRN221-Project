@@ -1,4 +1,5 @@
-﻿using Data_Access.DTOs;
+﻿using Data_Access.DAO;
+using Data_Access.DTOs;
 using Data_Access.Repository;
 using Data_Access.Repository.Implement;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace ProjectPRN221.Pages
 		[BindProperty]
 		public IFormFile FormFile { get; set; }
 		public string Message { get; set; }
+		public string Message2 { get; set; }
 		public List<SessionDTORaw> filterSessionsRaw = new List<SessionDTORaw>();
 		public List<SessionDTORaw> nonFilterSessionsRaw = new List<SessionDTORaw>();
 
@@ -22,6 +24,7 @@ namespace ProjectPRN221.Pages
 		public void OnGet()
 		{
 			Message = string.Empty;
+			Message2 = string.Empty;
 		}
 
 		public void OnPostImportSchedule()
@@ -60,11 +63,19 @@ namespace ProjectPRN221.Pages
 				var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
 				foreach (var item in sessionsAfterConvert)
 				{
-					sessionRepository.SaveSessionDTO(item);
+					Message2 = "🔔 All schedules are new schedules";
+					if (SessionDAO.Instance.IsExistingSession(item))
+					{
+						Message = "✅ Import Schedule Status: Done.";
+						Message2 = "⚠️ Automatically skipped duplicate schedules";
+					}
+					else
+					{
+						sessionRepository.SaveSessionDTO(item);
+						Message = "✅ Import Schedule Status: Done";
+					}
 				}
 			}
-
-			Message = "✅ Import Schedule Status: Done";
 		}
 	}
 }

@@ -66,11 +66,6 @@ namespace ProjectPRN221.Helper
 
 							// New SessionDTOCreate
 							SessionDTOCreate sessionDTOCreate = new SessionDTOCreate();
-							// Add Object
-							//sessionDTOCreate.Room = RoomDAO.Instance.GetRoomByRoomRaw(rawSession.RoomRaw);
-							//sessionDTOCreate.Lecturer = LecturerDAO.Instance.GetLecturerById(rawSession.LecturerId);
-							//sessionDTOCreate.Timeslot = TimeSlotDAO.Instance.GetTimeSlotById(sessionDTOCreate.TimeslotId);
-							//sessionDTOCreate.GroupId = GroupDAO.Instance.GetGroupByGroupNameAndSubjectId(rawSession.GroupName, rawSession.SubjectId).GroupId;
 							GetOrCreateGroup(rawSession.GroupName, rawSession.SubjectId, rawSession.LecturerId, rawSession.FirstDate.Year.ToString());
 							sessionDTOCreate.GroupId = GroupDAO.Instance.GetGroupByGroupNameAndSubjectId(rawSession.GroupName, rawSession.SubjectId).GroupId;
 
@@ -106,8 +101,6 @@ namespace ProjectPRN221.Helper
 
 			return sessionDTOCreates;
 		}
-
-
 
 		public static GroupDTOCreate GetOrCreateGroup(string groupName, string subjectId, string lecturerId, string year)
 		{

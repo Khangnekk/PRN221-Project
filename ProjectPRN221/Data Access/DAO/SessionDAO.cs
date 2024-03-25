@@ -1,4 +1,5 @@
 ﻿using Business_Object.Models;
+using Data_Access.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data_Access.DAO
@@ -58,6 +59,21 @@ namespace Data_Access.DAO
 			context.Sessions.AddRange(sessions);
 
 			//context.SaveChanges();	
+		}
+
+		public bool IsExistingSession(SessionDTOCreate sessionDTO)
+		{
+			var existingSession = context.Sessions.FirstOrDefault(s =>
+				s.GroupId == sessionDTO.GroupId &&
+				s.RoomId == sessionDTO.RoomId &&
+				s.Date == sessionDTO.Date &&
+				s.TimeslotId == sessionDTO.TimeslotId &&
+				s.LecturerId == sessionDTO.LecturerId &&
+				s.SessionNo == sessionDTO.SessionNo &&
+				s.Online == sessionDTO.Online);
+			if (existingSession != null)
+				return true;
+			return false;
 		}
 	}
 }
