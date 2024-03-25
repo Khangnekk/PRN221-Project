@@ -69,5 +69,20 @@ namespace ProjectPRN221.Helper
 			string data = JsonSerializer.Deserialize<string>(dataRaw, options);
 			return data;
 		}
+
+		public void SetCurrentSessionId(int SessionId)
+		{
+			_session.SetInt32("CurrentSessionId", SessionId);
+		}
+
+		public int GetCurrentSessionId()
+		{
+			int? currentSessionId = _session.GetInt32("CurrentSessionId");
+			if (currentSessionId == null)
+			{
+				currentSessionId = -1;
+			}
+			return (int)currentSessionId;
+		}
 	}
 }

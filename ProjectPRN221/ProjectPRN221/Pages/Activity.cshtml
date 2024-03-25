@@ -115,7 +115,7 @@
 												{
 													if (s.Timeslot.TimeslotId == ts.TimeslotId && s.RoomId == r.RoomId)
 													{
-														<a>@s.Group.GroupName</a><br/>
+														<a asp-page="/ChangeSchedule" asp-route-SessionId="@s.SessionId">@s.Group.GroupName</a><br />
 														<a>@s.Group.Subject.SubjectId</a><br/>
 														<a>@s.LecturerId</a>
 													}

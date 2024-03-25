@@ -115,8 +115,7 @@
 											{
 												if (cs.TimeslotId == ts.TimeslotId && cs.Date == d)
 												{
-													<a href="#">@cs.Group.GroupName</a>
-
+													<a asp-page="/ChangeSchedule" asp-route-SessionId="@cs.SessionId">@cs.Group.GroupName</a>
 													<br />
 													<a>@cs.Room.AreaId - @cs.Room.RoomName</a>
 												}
