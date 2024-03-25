@@ -28,6 +28,8 @@ namespace Data_Access.Mapper
 			CreateMap<SessionDTOCreate, Session>()
 				.ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => false));
 			CreateMap<SessionDTO, SessionDTOCreate>();
+			CreateMap<SessionDTO, Session>();
+
 
 			// Map Group
 			CreateMap<Group, GroupDTO>();

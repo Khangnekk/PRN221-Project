@@ -40,6 +40,19 @@ namespace Data_Access.DAO
 				.Where(a => a.Discontinued == false).ToList();
 		}
 
+		public Session GetSessionById(int sessionId)
+		{
+			Session? session = new Session();
+			session = context.Sessions
+				.Include(s => s.Group)
+				.ThenInclude(s => s.Subject)
+				.Include(s => s.Lecturer)
+				.Include(s => s.Timeslot)
+				.Include(s => s.Room)
+				.FirstOrDefault(s => s.SessionId == sessionId && s.Discontinued == false);
+			return session;
+		}
+
 		public List<Session> GetSessionsByLecturerId(string lecturerId)
 		{
 			List<Session> sessions = GetSessions()
@@ -82,6 +95,72 @@ namespace Data_Access.DAO
 			if (existingSession != null)
 				return true;
 			return false;
+		}
+
+		public string UpdateSessionAsync(Session updatedSession)
+		{
+			try
+			{
+				var existingSession = context.Sessions.FirstOrDefault(s => s.SessionId == updatedSession.SessionId);
+
+				if (existingSession == null)
+				{
+					return "Session not found.";
+				}
+
+				// Check if the updated session conflicts with another session
+				var conflictingSession = context.Sessions.FirstOrDefault(s =>
+					s.SessionId != updatedSession.SessionId &&
+					s.Date == updatedSession.Date &&
+					s.TimeslotId == updatedSession.TimeslotId);
+
+				if (conflictingSession != null)
+				{
+					return "The updated overlaps slot with another session";
+				}
+
+				// Check if there's already a session with the same lecturer, date, and timeslot
+				var existingLecturerSession = context.Sessions.FirstOrDefault(s =>
+					s.SessionId != updatedSession.SessionId &&
+					s.LecturerId == updatedSession.LecturerId &&
+					s.Date == updatedSession.Date &&
+					s.TimeslotId == updatedSession.TimeslotId);
+
+				if (existingLecturerSession != null)
+				{
+					return "Another session with the same lecturer already exists for the given date and timeslot.";
+				}
+
+				// Check if there's a session with the same room, date, and timeslot
+				var existingRoomSession = context.Sessions.FirstOrDefault(s =>
+					s.SessionId != updatedSession.SessionId &&
+					s.RoomId == updatedSession.RoomId &&
+					s.Date == updatedSession.Date &&
+					s.TimeslotId == updatedSession.TimeslotId);
+
+				if (existingRoomSession != null)
+				{
+					return "Another session with the same room already exists for the given date and timeslot.";
+				}
+
+				// Update the session and save changes
+				existingSession.GroupId = updatedSession.GroupId;
+				existingSession.RoomId = updatedSession.RoomId;
+				existingSession.Date = updatedSession.Date;
+				existingSession.TimeslotId = updatedSession.TimeslotId;
+				existingSession.LecturerId = updatedSession.LecturerId;
+				existingSession.SessionNo = updatedSession.SessionNo;
+				existingSession.Online = updatedSession.Online;
+				existingSession.Discontinued = updatedSession.Discontinued;
+
+				context.SaveChanges();
+
+				return "Session updated successfully.";
+			}
+			catch (Exception ex)
+			{
+				return $"Error updating session: {ex.Message}";
+			}
 		}
 	}
 }

@@ -26,6 +26,16 @@ namespace Data_Access.DAO
 				return instance;
 			}
 		}
+
+		public List<Room> GetRooms()
+		{
+			List<Room> room = new List<Room>();
+			room = context.Rooms
+				.Include(r => r.Area)
+				.ToList();
+			return room;
+		}
+
 		public Room GetRoomByRoomRaw(string roomRaw)
 		{
 			Room? room = new Room();

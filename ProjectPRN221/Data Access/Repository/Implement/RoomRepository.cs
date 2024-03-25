@@ -25,5 +25,11 @@ namespace Data_Access.Repository.Implement
 			return mapper.Map<List<Room>, List<RoomDTO>>(RoomDAO.Instance.GetRoomsByAreaId(areaId));
 		}
 
+		public List<RoomDTO> GetRoomDTOs()
+		{
+			List<RoomDTO> roomDTOs = new List<RoomDTO>();
+			return mapper.Map<List<Room>, List<RoomDTO>>(RoomDAO.Instance.GetRooms());
+		}
+
 	}
 }

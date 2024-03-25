@@ -37,6 +37,8 @@
 				<header class="header-bar">
 					<div class="header-left">
 						<span><a href="/">Home</a></span>&nbsp;|&nbsp;
+						<span><a href="/ActivityAll">Activity All Day</a></span>&nbsp;|&nbsp;
+						<span><a href="/Activity">Activity One Day</a></span>&nbsp;|&nbsp;
 					</div>
 					<div class="header-right">
 						<span><a href="#">username</a></span>&nbsp;|&nbsp;
@@ -52,46 +54,83 @@
 					<h2>Change Schedule</h2>
 				</div>
 				<div class="change-schedule-table">
-					<form>
-						<p id="sysMessage" class="sysMessage"></p>
+					<form method="post">
+						@if (Model.Message != null)
+						{
+							if (Model.Message == "Session updated successfully.")
+							{
+								<p style="color: green">@Model.Message</p>
+							}
+							else
+							{
+								<p style="color: red">@Model.Message</p>
+							}
+						}
 						<table>
 							<tr>
 								<td>New date</td>
-								<td><input type="date" /></td>
+								<td><input type="date" asp-for="MappingDate" value="@Model.CurrentChangeSession.Date.ToString("yyyy-MM-dd")" /></td>
 							</tr>
 							<tr>
 								<td>New slot</td>
 								<td>
-									<select>
-										<option>1</option>
-										<option>2</option>
+									<select asp-for="TimeslotId">
+										@foreach (var ts in @Model.TimeSlots)
+										{
+											@if (Model.TimeslotId == ts.TimeslotId)
+											{
+												<option value="@ts.TimeslotId" selected>
+													@ts.TimeslotName
+												</option>
+											}
+											else
+											{
+												<option value="@ts.TimeslotId">
+													@ts.TimeslotName
+												</option>
+											}
+										}
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td>New room</td>
 								<td>
-									<select>
-										<option>data</option>
-										<option>data</option>
+									<select asp-for="RoomId">
+										@foreach (var r in @Model.AllRooms)
+										{
+											@if (Model.RoomId == r.RoomId)
+											{
+												<option value="@r.RoomId" selected>
+													@r.AreaId - @r.RoomName
+												</option>
+											}
+											else
+											{
+												<option value="@r.RoomId">
+													@r.AreaId - @r.RoomName
+												</option>
+											}
+										}
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td>New teacher</td>
-								<td><input type="text" /></td>
+								<td><input type="text" asp-for="LecturerId" /></td>
 							</tr>
 							<tr>
 								<td>SessionNo</td>
-								<td>10</td>
-							</tr>
-							<tr>
-								<td>Course</td>
-								<td>Advanced Cross-Platform Application Programming With .NET</td>
+								<td>
+									@Model.CurrentChangeSession.SessionNo
+								</td>
 							</tr>
 							<tr>
 								<td>Subject</td>
-								<td>PRN221 (Advanced Cross-Platform Application Programming With .NET)</td>
+								<td>
+									@Model.CurrentChangeSession.Group.SubjectId -
+									@Model.CurrentChangeSession.Group.Subject.SubjectName
+								</td>
 							</tr>
 							<tr>
 								<td>Campus/Programme</td>
@@ -99,26 +138,39 @@
 							</tr>
 							<tr>
 								<td>Student group</td>
-								<td>SE1702-NET</td>
+								<td>@Model.CurrentChangeSession.Group.GroupName</td>
 							</tr>
 							<tr>
 								<td>Reason</td>
 								<td>
 									<textarea style="width: 100%">
 
-									</textarea>
+											</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>Online</td>
 								<td>
-									<input type="checkbox"/>
+									@if (@Model.CurrentChangeSession.Online == true)
+									{
+										<input type="checkbox" checked />
+									}
+									else
+									{
+										<input type="checkbox" />
+									}
 								</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td>
-									<input type="submit" value="Test Change" />
+									<input type="submit" asp-page-handler="TestChange" value="Test Change" />
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<input type="submit" asp-page-handler="Save Change" value="Save Change" />
 								</td>
 							</tr>
 						</table>
