@@ -53,6 +53,12 @@
 		</div>
 		<div class="row" style="margin-top: 1em">
 			<div class="col-md-12">
+				<div>
+					<a style="font-size: 1.2em; text-decoration: none" href="/Activity">
+						<i class="fa fa-calendar"></i>
+						<span>Activity</span>
+					</a>
+				</div>
 				<div class="import-schdule" id="impSchedule">
 					<a style="font-size: 1.2em;" href="#">
 						<i class="fa fa-upload"></i>
@@ -62,11 +68,47 @@
 				<div style="margin-left: 2em">
 					<span>@Model.Message</span>
 				</div>
-				<div>
-					<a style="font-size: 1.2em; text-decoration: none" href="/Activity">
-						<i class="fa fa-calendar"></i>
-						<span>Activity</span>
-					</a>
+				<div style="margin: 3em 0em auto 2em">
+					<div class="container">
+						<table class="table table-bordered">
+							<tr>
+								<th class="col-6">Import Success List</th>
+								<th class="col-6">Import Fail List</th>
+							</tr>
+							<tr>
+								<td class="col-6">
+									<ul>
+										@if(Model.filterSessionsRaw.Any())
+										{
+											@foreach(var success in Model.filterSessionsRaw)
+											{
+												<li style="color: green;margin-right: 0.5em">@success.GroupName | @success.SubjectId | @success.RoomRaw | @success.LecturerId | @success.TimeslotRaw</li>
+											}
+										}
+										else
+										{
+											<li>No data available</li>
+										}
+									</ul>
+								</td>
+								<td class="col-6">
+									<ul>
+										@if(Model.nonFilterSessionsRaw.Any())
+										{
+											@foreach(var fail in Model.nonFilterSessionsRaw)
+											{
+												<li style="color: red;">@fail.GroupName | @fail.SubjectId | @fail.RoomRaw | @fail.LecturerId | @fail.TimeslotRaw</li>
+											}
+										}
+										else
+										{
+											<li>No data available</li>
+										}
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
