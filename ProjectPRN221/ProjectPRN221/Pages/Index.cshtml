@@ -68,7 +68,9 @@
 				<div style="margin-left: 2em">
 					<span>@Model.Message</span>
 				</div>
-				<div style="margin: 3em 0em auto 2em">
+				@if (Model.Message.Any())
+				{
+					<div style="margin: 3em 0em auto 2em">
 					<div class="container">
 						<table class="table table-bordered">
 							<tr>
@@ -110,13 +112,14 @@
 						</table>
 					</div>
 				</div>
+				}
 			</div>
 		</div>
 
 		@* Modal *@
 		<div class="upload-file-popup" id="uploadFilePopup">
-			<div class="container mt-5">
-				<div class="card">
+			<div class="container mt-5 center">
+				<div class="card col-6">
 					<div style="display: flex; justify-content: end">
 						<button style="margin:0.9em;" type="button" class="btn btn-close btn" id="btnClose" />
 					</div>
