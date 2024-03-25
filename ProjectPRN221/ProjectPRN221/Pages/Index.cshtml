@@ -10,6 +10,11 @@
 	<link rel="stylesheet"
 		  href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<style>
+		.feature{
+			margin-top: 1em;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -53,13 +58,19 @@
 		</div>
 		<div class="row" style="margin-top: 1em">
 			<div class="col-md-12">
-				<div>
+				<div class="feature">
 					<a style="font-size: 1.2em; text-decoration: none" href="/Activity">
 						<i class="fa fa-calendar"></i>
-						<span>Activity</span>
+						<span>Activity (View One Date)</span>
 					</a>
 				</div>
-				<div class="import-schdule" id="impSchedule">
+				<div class="feature">
+					<a style="font-size: 1.2em; text-decoration: none" href="/ActivityAll">
+						<i class="fa fa-calendar"></i>
+						<span>Activity (View All Date)</span>
+					</a>
+				</div>
+				<div class="import-schdule feature" id="impSchedule" title="Click here to import more">
 					<a style="font-size: 1.2em;" href="#">
 						<i class="fa fa-upload"></i>
 						<span>Import Schedule</span>

@@ -124,7 +124,6 @@ namespace ProjectPRN221.Helper
 			}
 		}
 
-
 		public static List<SessionDTORaw> GetFinalFilteredSessions(List<SessionDTORaw> sessions)
 		{
 			sessions = FilterSessionDTORaws_ByGroupTimeslotAndSubject(sessions);

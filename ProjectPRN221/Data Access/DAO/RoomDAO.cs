@@ -1,4 +1,5 @@
 ﻿using Business_Object.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data_Access.DAO
 {
@@ -27,9 +28,23 @@ namespace Data_Access.DAO
 		}
 		public Room GetRoomByRoomRaw(string roomRaw)
 		{
+			Room? room = new Room();
 			string areaId = roomRaw.Split("-")[0];
 			string roomName = roomRaw.Split("-")[1];
-			return context.Rooms.SingleOrDefault(r => r.RoomName.Contains(roomName) && r.AreaId == areaId);
+			room = context.Rooms
+				.Include(r => r.Area)
+				.SingleOrDefault(r => r.RoomName.Contains(roomName) && r.AreaId == areaId);
+			return room;
+		}
+
+		public List<Room> GetRoomsByAreaId(string areaId)
+		{
+			List<Room> rooms = new List<Room>();
+			rooms = context.Rooms
+				.Include(a => a.Area)
+				.Where(r => areaId == "-1" || r.AreaId == areaId)
+				.ToList();
+			return rooms;
 		}
 	}
 }

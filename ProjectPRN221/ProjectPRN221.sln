@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data Access", "Data Access\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business Object", "Business Object\Business Object.csproj", "{58ACA714-8010-4A92-93DF-345271FCB4F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPRN221Test", "ProjectPRN221Test\ProjectPRN221Test.csproj", "{7D27ACEF-E4AD-4D41-87E7-281A179AD694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectPRN221Test", "ProjectPRN221Test\ProjectPRN221Test.csproj", "{7D27ACEF-E4AD-4D41-87E7-281A179AD694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

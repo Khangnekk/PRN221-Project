@@ -33,5 +33,15 @@ namespace Data_Access.Repository.Implement
 		{
 			SessionDAO.Instance.SaveSession(mapper.Map<SessionDTOCreate, Session>(sessionDTOCreate));
 		}
+
+		public List<SessionDTO> GetSessionsByLecturerId(string lecturerId)
+		{
+			return mapper.Map<List<Session>, List<SessionDTO>>(SessionDAO.Instance.GetSessionsByLecturerId(lecturerId));
+		}
+
+		public List<SessionDTO> GetSessionsByLecturerIdAreaAndDate()
+		{
+			return mapper.Map<List<Session>, List<SessionDTO>>(SessionDAO.Instance.GetSessions());
+		}
 	}
 }

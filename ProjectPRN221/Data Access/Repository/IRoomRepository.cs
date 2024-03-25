@@ -1,7 +1,9 @@
-﻿namespace Data_Access.Repository
+﻿using Data_Access.DTOs;
+
+namespace Data_Access.Repository
 {
 	public interface IRoomRepository
 	{
-
+		public List<RoomDTO> GetRoomDTOsByAreaId(string areaId);
 	}
 }

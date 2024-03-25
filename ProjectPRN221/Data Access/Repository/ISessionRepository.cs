@@ -8,5 +8,6 @@ namespace Data_Access.Repository
 		public void SaveRangeSession(List<SessionDTOCreate> sessionDTOCreates);
 
 		public void SaveSessionDTO(SessionDTOCreate sessionDTOCreate);
+		public List<SessionDTO> GetSessionsByLecturerId(string lecturerId);
 	}
 }

@@ -33,12 +33,20 @@ namespace Data_Access.DAO
 		{
 			return context.Sessions
 				.Include(s => s.Group)
+				.ThenInclude(s => s.Subject)
 				.Include(s => s.Lecturer)
 				.Include(s => s.Timeslot)
 				.Include(s => s.Room)
 				.Where(a => a.Discontinued == false).ToList();
 		}
 
+		public List<Session> GetSessionsByLecturerId(string lecturerId)
+		{
+			List<Session> sessions = GetSessions()
+				.Where(s => s.LecturerId == lecturerId)
+				.ToList();
+			return sessions;
+		}
 		public void SaveSession(Session session)
 		{
 			session.Discontinued = false;

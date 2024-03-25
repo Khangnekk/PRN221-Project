@@ -12,6 +12,9 @@ namespace Data_Access.Mapper
 			CreateMap<Area, AreaDTO>();
 			CreateMap<AreaDTOCreate, Area>();
 
+			// Map Room
+			CreateMap<Room, RoomDTO>();
+
 			// Map TimeSlot
 			CreateMap<TimeSlot, TimeSlotDTO>();
 			CreateMap<TimeSlotDTOCreate, TimeSlot>();

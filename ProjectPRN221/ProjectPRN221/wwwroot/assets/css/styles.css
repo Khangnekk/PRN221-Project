@@ -70,6 +70,7 @@
 }
 
 .import-schdule {
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -92,12 +93,19 @@
         top: 35%
     }
 }
+
 .highlight {
     background-color: #e5e5e5;
     color: azure;
 }
 
-.fileUploadRawClass{
+.fileUploadRawClass {
     border: 1px dashed black;
     padding: 0 2em 0 0.5em;
+}
+
+.import-schdule:hover {
+    
+    border: 3px solid #ccc;
+    margin: 1em 0 0 0;
 }

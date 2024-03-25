@@ -1,19 +1,14 @@
 ﻿@page
-@model ProjectPRN221.Pages.ActivityModel
+@model ProjectPRN221.Pages.ActivityAllModel
 @{
 }
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <head>
 	<link rel="stylesheet" href="~/assets/css/styles.css" />
 	<link href="~/libs/bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<link href="~/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<style>
-		.table th,
-		.table td {
-			text-align: center; 
-			vertical-align: middle !important; 
-		}
-	</style>
+	<link rel="stylesheet"
+		  href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
 	<div class="container">
@@ -60,71 +55,18 @@
 				<div style="display: flex; justify-content: center; align-self: center">
 					<form method="post">
 						Search:
-						<input type="text" asp-for="LecturerId" name="LecturerId"/>
+						<input type="text" asp-for="LecturerId" name="LecturerId" />
 						<input type="submit" value="Search" asp-page-handler="Search" />
-						<span>@Model.Message</span>
+						@* <span>Model.Message</span> *@
 					</form>
 				</div>
 				<div class="activity-table">
 					<table class="table table-bordered table-hover">
 						<thead>
-							<form method="post">
-								<div class="center activity-search-bar">
-									<div>
-										CAMPUS:
-										<select>
-											<option>FU-HL</option>
-											<option>FU-DA</option>
-										</select>
-										AREA:
-										<select asp-for="AreaId" name="AreaId">
-											<option value="-1">- All Areas -</option>
-											@if (Model.Areas != null)
-											{
-												foreach (var item in Model.Areas)
-												{
-													<option value="@item.AreaId">@item.AreaName</option>
-												}
-											}
-										</select>
-										DATE:
-										<input type="date" asp-for="DateView" name="DateView"/>
-										<input type="submit" value="View" asp-page-handler="View" />
-									</div>
-								</div>
-							</form>
+
 						</thead>
 						<tbody>
-							<tr class="table-primary">
-								<th>ROOM</th>
-								@foreach (var ts in Model.TimeSlots)
-								{
-									<th>@ts.TimeslotName<br />( @ts.TimeslotDescription )</th>
-								}
-							</tr>
-							@if (Model.CurrentRooms != null)
-							{
-								@foreach (var r in Model.CurrentRooms)
-								{
-									<tr>
-										<td style="text-align: center">@r.AreaId - @r.RoomName</td>
-										@foreach (var ts in Model.TimeSlots)
-										{
-											<td style="text-align: center">
-												@foreach (var s in Model.CurrentSessions)
-												{
-													if (s.Timeslot.TimeslotId == ts.TimeslotId && s.RoomId == r.RoomId)
-													{
-														<a>@s.Group.GroupName</a><br/>
-														<a>@s.Group.Subject.SubjectId</a><br/>
-														<a>@s.LecturerId</a>
-													}
-												}
-											</td>
-										}
-									</tr>
-								}
-							}
+
 						</tbody>
 					</table>
 				</div>
