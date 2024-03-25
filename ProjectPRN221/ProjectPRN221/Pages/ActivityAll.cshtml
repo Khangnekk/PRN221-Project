@@ -2,6 +2,7 @@
 @model ProjectPRN221.Pages.ActivityAllModel
 @{
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <head>
 	<link rel="stylesheet" href="~/assets/css/styles.css" />
 	<link href="~/libs/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -9,6 +10,18 @@
 	<link rel="stylesheet"
 		  href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<style>
+		.table th,
+		.table td {
+			text-align: center;
+			vertical-align: middle !important;
+		}
+
+		.thead th,
+		.thead td {
+			background-color: #6b90da;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -57,20 +70,70 @@
 						Search:
 						<input type="text" asp-for="LecturerId" name="LecturerId" />
 						<input type="submit" value="Search" asp-page-handler="Search" />
-						@* <span>Model.Message</span> *@
+						<span>@Model.Message</span>
 					</form>
 				</div>
 				<div class="activity-table">
 					<table class="table table-bordered table-hover">
-						<thead>
-
+						<thead class="thead">
+							<tr>
+								<th style="width: 15%">
+									<form id="FormDate" method="post" style="margin: 0; padding: 0 !important" asp-page-handler="ViewThisWeek">
+										<input type="date" asp-for="requireDate" name="requireDate" onchange="submitForm()" />
+									</form>
+								</th>
+								<th>MON</th>
+								<th>TUS</th>
+								<th>WED</th>
+								<th>THU</th>
+								<th>FRI</th>
+								<th>SAT</th>
+								<th>SUN</th>
+							</tr>
+							<tr>
+								@if (Model.WeekDates.Count != 0)
+								{
+									<td></td>
+									@foreach (var d in Model.WeekDates)
+									{
+										<td>@d.Date.ToString("dd-MM-yyyy")</td>
+									}
+								}
+							</tr>
 						</thead>
 						<tbody>
+							@foreach (var ts in Model.TimeSlots)
+							{
+								<tr>
+									<td>
+										<b>@ts.TimeslotName</b> <br /> (@ts.TimeslotDescription)
+									</td>
+									@foreach (var d in Model.WeekDates)
+									{
+										<td style="text-align: center">
+											@foreach (var cs in Model.CurrentSessions)
+											{
+												if (cs.TimeslotId == ts.TimeslotId && cs.Date == d)
+												{
+													<a href="#">@cs.Group.GroupName</a>
 
+													<br />
+													<a>@cs.Room.AreaId - @cs.Room.RoomName</a>
+												}
+											}
+										</td>
+									}
+								</tr>
+							}
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		function submitForm() {
+			document.getElementById("FormDate").submit();
+		}
+	</script>
 </body>

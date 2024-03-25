@@ -15,7 +15,6 @@ namespace ProjectPRN221.Helper
 
 			char[] delimiters = { 'A', 'P' };
 			string[] times = rawSession.TimeslotRaw.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
 			foreach (var time in times)
 			{
 				char[] timeChars = time.ToCharArray();
@@ -78,16 +77,52 @@ namespace ProjectPRN221.Helper
 							if (rawSession.TimeslotRaw.StartsWith("A"))
 							{
 								if (sessionDTOCreate.SessionNo % 2 != 0)
-									sessionDTOCreate.TimeslotId = 1;
+								{
+									if (timeChars[0] < timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 1;
+									}
+									else if (timeChars[0] > timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 2;
+									}
+								}
 								else
-									sessionDTOCreate.TimeslotId = 2;
+								{
+									if (timeChars[0] < timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 2;
+									}
+									else if (timeChars[0] > timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 1;
+									}
+								}
 							}
 							else if (rawSession.TimeslotRaw.StartsWith("P"))
 							{
 								if (sessionDTOCreate.SessionNo % 2 != 0)
-									sessionDTOCreate.TimeslotId = 3;
+								{
+									if (timeChars[0] < timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 3;
+									}
+									else if (timeChars[0] > timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 4;
+									}
+								}
 								else
-									sessionDTOCreate.TimeslotId = 4;
+								{
+									if (timeChars[0] < timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 4;
+									}
+									else if (timeChars[0] > timeChars[1])
+									{
+										sessionDTOCreate.TimeslotId = 3;
+									}
+								}
 							}
 
 							sessionDTOCreates.Add(sessionDTOCreate);
