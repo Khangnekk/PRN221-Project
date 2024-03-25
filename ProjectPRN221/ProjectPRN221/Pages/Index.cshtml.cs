@@ -34,53 +34,37 @@ namespace ProjectPRN221.Pages
 			{
 				case ".json":
 					originalSessionsRaw = JsonSerializer.Deserialize<List<SessionDTORaw>>(sr);
-					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
-					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
-
-					foreach (var session in filterSessionsRaw)
-					{
-						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
-						foreach (var item in sessionsAfterConvert)
-						{
-							sessionRepository.SaveSessionDTO(item);
-						}
-						//sessionRepository.SaveRangeSession(sessionsAfterConvert);
-					}
-
-					Message = "✅ Import Schedule Status: Done";
+					ProcessImport(originalSessionsRaw);
 					break;
 				case ".csv":
 					originalSessionsRaw = CsvFileHelper.CsvFileReader(sr);
-					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
-					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
-
-					foreach (var session in filterSessionsRaw)
-					{
-						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
-
-					}
-					Message = "✅ Import Schedule Status: Done";
+					ProcessImport(originalSessionsRaw);
 					break;
 				case ".xml":
 					XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<SessionDTORaw>));
-					originalSessionsRaw = (List<SessionDTORaw>)xmlSerializer.Deserialize(sr);
-					filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
-					nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
-
-					foreach (var session in filterSessionsRaw)
-					{
-						var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
-
-					}
-					//DBContext.AddRange(services);
-					//DBContext.SaveChanges();
-					OnGet();
-					Message = "✅ Import Schedule Status: Done";
+					ProcessImport(originalSessionsRaw);
 					break;
 				default:
 					Message = "❌ Import Schedule: Fail. Cannot read data from file";
 					break;
 			}
+		}
+
+		void ProcessImport(List<SessionDTORaw> originalSessionsRaw)
+		{
+			filterSessionsRaw = SessionHelper.GetFinalFilteredSessions(originalSessionsRaw);
+			nonFilterSessionsRaw = SessionHelper.GetNonFilteredSessions(originalSessionsRaw, filterSessionsRaw);
+
+			foreach (var session in filterSessionsRaw)
+			{
+				var sessionsAfterConvert = SessionHelper.ConvertToSessionDTOCreates(session);
+				foreach (var item in sessionsAfterConvert)
+				{
+					sessionRepository.SaveSessionDTO(item);
+				}
+			}
+
+			Message = "✅ Import Schedule Status: Done";
 		}
 	}
 }
