@@ -153,7 +153,7 @@ namespace Data_Access.DAO
 				existingSession.Online = updatedSession.Online;
 				existingSession.Discontinued = updatedSession.Discontinued;
 
-				context.SaveChanges();
+				context.SaveChangesAsync();
 
 				return "Session updated successfully.";
 			}

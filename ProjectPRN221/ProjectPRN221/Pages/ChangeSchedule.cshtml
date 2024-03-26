@@ -77,18 +77,9 @@
 									<select asp-for="TimeslotId">
 										@foreach (var ts in @Model.TimeSlots)
 										{
-											@if (Model.TimeslotId == ts.TimeslotId)
-											{
-												<option value="@ts.TimeslotId" selected>
-													@ts.TimeslotName
-												</option>
-											}
-											else
-											{
 												<option value="@ts.TimeslotId">
 													@ts.TimeslotName
 												</option>
-											}
 										}
 									</select>
 								</td>
@@ -99,18 +90,9 @@
 									<select asp-for="RoomId">
 										@foreach (var r in @Model.AllRooms)
 										{
-											@if (Model.RoomId == r.RoomId)
-											{
-												<option value="@r.RoomId" selected>
-													@r.AreaId - @r.RoomName
-												</option>
-											}
-											else
-											{
 												<option value="@r.RoomId">
 													@r.AreaId - @r.RoomName
 												</option>
-											}
 										}
 									</select>
 								</td>

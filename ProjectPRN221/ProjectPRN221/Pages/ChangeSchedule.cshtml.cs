@@ -25,8 +25,11 @@ namespace ProjectPRN221.Pages
 
 		[BindProperty(SupportsGet = true)]
 		public string MappingDate { get; set; }
+		[BindProperty]
 		public int RoomId { get; set; }
+		[BindProperty]
 		public int TimeslotId { get; set; }
+		[BindProperty]
 		public string LecturerId { get; set; } = null!;
 		public string Message { get; set; }
 		void GetData()
